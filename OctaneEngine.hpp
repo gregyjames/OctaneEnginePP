@@ -72,7 +72,7 @@ class dl_part{
                 //Use custom write function (NULL MAY CRASH ON WINDOWS)
                 curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
                 //Enables the progress bar
-                curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 0L);
+                curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1L);
                 //Sets the progress function
                 curl_easy_setopt(curl, CURLOPT_PROGRESSFUNCTION, progress_func);
                 //Writes data to file
@@ -192,6 +192,7 @@ class OctaneEngine{
             //Adds Handlers to IO service
             for(dl_part i: parts){
                 io_service.post(boost::bind(&dl_part::download, i));
+                i.get_range();
             }
             //Creates the worker threads
             boost::thread_group worker_threads;
