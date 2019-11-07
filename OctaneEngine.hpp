@@ -8,22 +8,7 @@
 #include "tqdm.h"
 using namespace std;
 
-int progress_func(void* ptr, double TotalToDownload, double NowDownloaded,double TotalToUpload, double NowUploaded)
-{
-    system("clear");
-    tqdm bar;
-    bar.reset();
-    bar.set_theme_line();
-    bar.progress(NowDownloaded, TotalToDownload);
-    sleep(.1);
-
-    // and back to line begin - do not forget the fflush to avoid output buffering problems!
-    fflush(stdout);
-    // if you don't return 0, the transfer will be aborted - see the documentation
-    return 0;
-}
-
-struct dl_part{
+class dl_part{
     private:
         //Info for each part
         string url_obj;
@@ -33,7 +18,20 @@ struct dl_part{
         static size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream) {
             size_t written = fwrite(ptr, size, nmemb, stream);
             return written;
+        };
+        static int progress_func(void* ptr, double TotalToDownload, double NowDownloaded,double TotalToUpload, double NowUploaded)
+        {
+            tqdm bar;
+            bar.reset();
+            bar.set_theme_line();
+            bar.progress(NowDownloaded, TotalToDownload);
+
+            // and back to line begin - do not forget the fflush to avoid output buffering problems!
+            fflush(stdout);
+            // if you don't return 0, the transfer will be aborted - see the documentation
+            return 0;
         }
+
     public:
         dl_part(){
             start_file = 0;
@@ -99,7 +97,6 @@ struct dl_part{
         void get_range(){
             printf ("The range of the part is from %f - ", start_file);
             printf ("%f\n", end_file);
-            download();
         }
 };
 class OctaneEngine{
@@ -194,7 +191,7 @@ class OctaneEngine{
 
             //Adds Handlers to IO service
             for(dl_part i: parts){
-                io_service.post(boost::bind(&dl_part::get_range, i));
+                io_service.post(boost::bind(&dl_part::download, i));
             }
             //Creates the worker threads
             boost::thread_group worker_threads;
