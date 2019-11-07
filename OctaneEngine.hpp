@@ -1,3 +1,5 @@
+#ifndef OCTANEENGINE_H
+#define OCTANEENGINE_H
 #include <iostream>
 #include <boost/asio/io_service.hpp>
 #include <boost/bind.hpp>
@@ -208,3 +210,4 @@ class OctaneEngine{
             join_parts(out_file);
         }
 };
+#endif
