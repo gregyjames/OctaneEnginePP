@@ -1,7 +1,7 @@
 # Prerequisites
 *.d
 *.mp4
-/bin/*
+/bin/Debug
 /obj 
 
 # Compiled Object files
@@ -33,3 +33,4 @@
 *.exe
 *.out
 *.app
+OctaneEngine
