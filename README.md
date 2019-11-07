@@ -2,6 +2,9 @@
 
 A portable multithreaded C++ file downloading library built on Libcurl and Boost::asio.The progress bar was implemented using [cpptqdm](https://github.com/aminnj/cpptqdm). 
 
+# How To Use
+Add OctaneEngine.hpp to your project. Link -pthread (on linux), libcurl, boost::system, and boost::asio. Add the include directory for boost.
+
 # License
 MIT License
 
