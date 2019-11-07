@@ -1,5 +1,8 @@
 # Prerequisites
 *.d
+*.mp4
+/bin
+/obj 
 
 # Compiled Object files
 *.slo

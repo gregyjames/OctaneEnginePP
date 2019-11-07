@@ -12,8 +12,18 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-g" />
+					<Add option="-Os" />
+					<Add option="-w" />
+					<Add directory="../../../Documents/boost_1_57_0/boost_output/include" />
 				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-pthread" />
+					<Add option="-lcurl" />
+					<Add library="../../../Documents/boost_1_57_0/boost_output/lib/libboost_atomic.a" />
+					<Add library="../../../Documents/boost_1_57_0/boost_output/lib/libboost_system.a" />
+					<Add library="../../../Documents/boost_1_57_0/boost_output/lib/libboost_thread.a" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/OctaneEngine" prefix_auto="1" extension_auto="1" />
