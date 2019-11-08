@@ -1,7 +1,10 @@
+sudo: required
+before_install:
+  - sudo apt-get install libcurl4-openssl-dev
 language: cpp
 compiler:
 	- gcc
-script: make && make test
+script: make
 before_script:
-	- sudo apt-get update -qq
-	- sudo apt-get install libboost-dev
+	-sudo apt-get update -qq
+	-sudo apt-get install libboost-dev
